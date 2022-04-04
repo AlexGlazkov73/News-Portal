@@ -1,0 +1,69 @@
+{% extends 'default.html' %}
+{% load custom_tags %}
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block welcome_block %}
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Welcome to ALEX News!</h1>
+                    <p class="lead mb-0">A blog of IT-news</p>
+                </div>
+            </div>
+        </header>
+{% endblock welcome_block %}
+
+{% block content %}
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    {% for post in posts %}
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">{{post.time_created}}</div>
+                            <h2 class="card-title">{{post.title | truncatewords:5 }}</h2>
+                            <p class="card-text">{{ post.preview }}</p>
+                            <a class="btn btn-primary" href="{{ post.id }}">Read more →</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            {% if page_obj.has_previous %}
+                                <li class="page-item" aria-current="page">
+                                    <a class="page-link" href="?{% url_replace page=1 %}">
+                                        1
+                                    </a>
+                                </li>
+                            {% if page_obj.previous_page_number != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}">
+                                        {{ page_obj.previous_page_number }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% endif %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="?page={{page_obj.number}}">
+                                        {{page_obj.number}}
+                                    </a>
+                                </li>
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.next_page_number }}</a></li>
+                            {% if paginator.num_pages != page_obj.next_page_number %}
+                                <li class="page-item disabled"><a class="page-link" href="">...</a></li>
+                                <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a></li>
+                            {% endif %}
+                            {% endif %}
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Older</a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+{% endblock content %}
