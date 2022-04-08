@@ -1,9 +1,15 @@
 from pathlib import Path
 import os
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure--e%=awx%f+s2%3sisb(cz!(gkhf#la3uffbsaoq9%#2%*4iv!1'
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+SECRET_KEY = env.str('SECRET_KEY')
 
 
 DEBUG = True
@@ -24,6 +30,10 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'news',
     'django_filters',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +74,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,5 +111,15 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/news'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+SITE_ID = 1
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

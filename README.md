@@ -1,4 +1,4 @@
-News-Portal 
+# News-Portal 
 
 A web-site blog about IT. It will be a blog where users can talk about various news, publish 
 articles, cover world events.
