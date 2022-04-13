@@ -114,6 +114,7 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/news'
+LOGOUT_REDIRECT_URL = '/news'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

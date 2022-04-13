@@ -1,10 +1,13 @@
 {% extends 'account/base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block head_title %}Bootstrap 5 Login Page{% endblock %}</title>
+    <title>{% block head_title %} {% trans "Login" %} {% endblock %}</title>
     {% block extra_head %}
 	<meta charset="utf-8">
 	<meta name="author" content="Muhamad Nauval Azhar">
@@ -31,6 +34,15 @@
 
 							<form method="POST" class="login needs-validation" novalidate="" autocomplete="off" action="{% url 'account_login'%}">
                                 {% csrf_token %}
+								{% if form.non_field_errors %}
+								<div class="alert alert-warning">
+								  <ul class="alert-message">
+									{% for error in form.non_field_errors %}
+									<li>{{ error }}</li>
+									{% endfor %}
+								  </ul>
+								</div>
+								{% endif %}
 								<div class="mb-3">
 									{{ form.login | add_class:"form-control" }}
                                     <div class="invalid-feedback">
@@ -55,7 +67,7 @@
 										<label class="form-check-label">Remember Me</label>
 									</div>
 									<button type="submit" class="primaryAction btn btn-primary ms-auto">
-										Login
+										{% trans "Login" %}
 									</button>
 								</div>
 							</form>
