@@ -1,0 +1,46 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block extra_head %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+{% endblock %}
+{% block content %}
+<style>
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            height:100px;
+            transform: translate(-50%, -50%);
+        }
+        form {
+              position: absolute;
+              left: 50%;
+              top: 100%;
+              -webkit-transform: translate(-50%, -50%);
+              -moz-transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              -o-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+        }
+    </style>
+<div class="centered">
+
+    <h1 style="text-align: center" class="card-title fw-bold mb-4">{% trans 'Are you sure you want to sign out?' %}</h1>
+
+    <form method="post" action="{% url 'account_logout' %}" >
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+      <button type="submit" class="primaryAction btn btn-primary ms-auto" style="height: 50px; width: 100px;">{% trans 'Sign Out' %}</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
