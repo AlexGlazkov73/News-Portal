@@ -1,6 +1,7 @@
 {% extends 'account/base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+{% load account socialaccount %}
 
 {% load i18n %}
 
@@ -58,6 +59,20 @@
 								    	Password is required
 							    	</div>
 								</div>
+								{% get_providers as socialaccount_providers %}
+
+									{% if socialaccount_providers %}
+
+									<div class="socialaccount_ballot">
+									  <ul class="socialaccount_providers">
+										{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+									  </ul>
+
+									</div>
+
+									{% include "socialaccount/snippets/login_extra.html" %}
+
+									{% endif %}
 
 								<div class="d-flex align-items-center">
 									<div class="form-check">

@@ -32,7 +32,7 @@
 
     <h1 style="text-align: center" class="card-title fw-bold mb-4">{% trans 'Are you sure you want to sign out?' %}</h1>
 
-    <form method="post" action="{% url 'account_logout' %}" >
+    <form method="post" action="{% url 'account_logout' %}">
       {% csrf_token %}
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
